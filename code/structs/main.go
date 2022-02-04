@@ -47,18 +47,36 @@ func main() {
 	alfredo.updateNameWithoutPointer("Carlos")
 	fmt.Println("UpdateNameWithoutPointer: ", alfredo)
 
+	fmt.Println("Jim. Previous to update anthing ", jim)
+
+	// Ways to avoid passing by value in go when you invoke a function with having the pointer of the type
+	// 1) Simply by the type
 	jim.updateName("jimmy")
 	jim.print()
+
+	// 2) Define the pointer explicitly
+	var jimPointer *person
+	// Access to the memory address of the pointer
+	jimPointer = &jim
+	// TODO: Although you are using a pointer --> Is there no way to print the memory address?
+	fmt.Println(" jimPointer: ", jimPointer)
+	jimPointer.print()
 }
 
-// Receiver function but without pointer
+// Receiver function but without pointer --> Afterwards the element's property hasn't been updated
+// Go is a pass value language -->
+// 1) Although you are doing jim.updateNameWithoutPointer --> It's creating another person in the memory
+// 2) Update the information on the new person created
 func (p person) updateNameWithoutPointer(newFirstName string) {
 	p.firstName = newFirstName
 }
 
-// Function to update the value of the property firstName
+// Function to update the value of the property firstName, but for a specific memory address, not for the copy pass value
+// * as argument, because it's the pointer of the typer person
 func (pointerToPerson *person) updateName(newFirstName string) {
-	(*pointerToPerson).firstName = newFirstName
+	// TODO: Is necessary to add "*" to the variable pointerToPerson? I don't see any difference in the result
+	//(*pointerToPerson).firstName = newFirstName
+	(pointerToPerson).firstName = newFirstName
 }
 
 // Receiver function
