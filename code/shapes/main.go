@@ -21,6 +21,7 @@ func main() {
 	printArea(s)
 }
 
+// Implementing getArea to identify that triangle and square are shape
 func (s square) getArea() float64 {
 	return s.sideLength * s.sideLength
 }
